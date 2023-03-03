@@ -34,27 +34,27 @@ function playRound(){
 function game(){
     let times = prompt("How many times do you want to play?");
     let computerScore = 0; 
-    let playerScore = 0; 
+    let playerScore = 0;
+    
     for(let i = 0; i < times; i++){
-        let result = playRound();
-        let resultSplitted = result.split(" ");
-        if(resultSplitted[1] === "Win!"){
-            playerScore++;
-        }
-        else if(resultSplitted[1] === "Lose!"){
-            computerScore++;
-        }
-        let answers = [result, `You: ${playerScore}`, `Computer: ${computerScore}`]
-        for(let i = 0; i < 3; i++){
-            const para = document.createElement("p");
-            const node = document.createTextNode(answers[i]);
-            para.appendChild(node);
-            const element = document.getElementsByTagName("BODY")[0];
-            element.appendChild(para);
-        }
-        // console.log();
-        // console.log();
-        // console.log();
+        setTimeout(function() {
+            let result = playRound();
+            let resultSplitted = result.split(" ");
+            if(resultSplitted[1] === "Win!"){
+                playerScore++;
+            }
+            else if(resultSplitted[1] === "Lose!"){
+                computerScore++;
+            }
+            let answers = [result, `You: ${playerScore}`, `Computer: ${computerScore}`]
+            for(let i = 0; i < 3; i++){
+                const para = document.createElement("h1");
+                const node = document.createTextNode(answers[i]);
+                para.appendChild(node);
+                const element = document.getElementsByTagName("BODY")[0];
+                element.appendChild(para);
+            }
+        }, 50); 
     }
 }
 game();
