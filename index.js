@@ -44,9 +44,17 @@ function game(){
         else if(resultSplitted[1] === "Lose!"){
             computerScore++;
         }
-        console.log(result);
-        console.log(`You: ${playerScore}`);
-        console.log(`Computer: ${computerScore}`);
+        let answers = [result, `You: ${playerScore}`, `Computer: ${computerScore}`]
+        for(let i = 0; i < 3; i++){
+            const para = document.createElement("p");
+            const node = document.createTextNode(answers[i]);
+            para.appendChild(node);
+            const element = document.getElementsByTagName("BODY")[0];
+            element.appendChild(para);
+        }
+        // console.log();
+        // console.log();
+        // console.log();
     }
 }
 game();
