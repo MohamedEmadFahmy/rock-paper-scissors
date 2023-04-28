@@ -1,3 +1,6 @@
+
+
+
 function getComputerChoice(){
     let choices = ["rock", "paper", "scissors"];
     let rand = Math.floor(Math.random() * choices.length);
@@ -37,13 +40,17 @@ function game(){
     let playerScore = 0;
     
     for(let i = 0; i < times; i++){
-        setTimeout(function() {
+        setTimeout(function() {          // to make text appear one by one in browser instead of after all inputs
             let result = playRound();
             let resultSplitted = result.split(" ");
             if(resultSplitted[1] === "Win!"){
                 playerScore++;
             }
             else if(resultSplitted[1] === "Lose!"){
+                computerScore++;
+            }
+            else {
+                playerScore++;
                 computerScore++;
             }
             let answers = [result, `You: ${playerScore}`, `Computer: ${computerScore}`]
