@@ -1,17 +1,11 @@
-
-
-
 function getComputerChoice(){
     let choices = ["rock", "paper", "scissors"];
     let rand = Math.floor(Math.random() * choices.length);
     return choices[rand];
 };
 
-function playRound(){
-    let playerChoice = prompt("Choose rock or paper or scissors");
+function playRound(playerChoice){
     let computerChoice = getComputerChoice();
-    computerChoice = computerChoice.toLowerCase();
-    playerChoice = playerChoice.toLowerCase();
     if(computerChoice === playerChoice){
         return `Draw! Both ${computerChoice}`;
     }
@@ -34,39 +28,55 @@ function playRound(){
         return "You Lose! Scissors beats Paper";
     }
 }
+
 function game(){
-    let times = prompt("How many times do you want to play?");
     let computerScore = 0; 
     let playerScore = 0;
-    
-    for(let i = 0; i < times; i++){
-        setTimeout(function() {          // to make text appear one by one in browser instead of after all inputs
-            let result = playRound();
-            let resultSplitted = result.split(" ");
+    let times = 0;
+    let choices = document.querySelectorAll(".options img");
+    let resultText;
+
+    choices.forEach((choice)=> {
+        choice.addEventListener("click", () => {
+            
+            resultText = playRound(choice.getAttribute("id"));
+            let result = document.querySelector(".score-text");
+            result.textContent = resultText;
+            let resultSplitted = resultText.split(" ");
             if(resultSplitted[1] === "Win!"){
                 playerScore++;
             }
             else if(resultSplitted[1] === "Lose!"){
                 computerScore++;
             }
-            else {
-                playerScore++;
-                computerScore++;
+
+            let playerScoreObject = document.querySelector("#user p");
+            let computerScoreObject = document.querySelector("#computer p");
+            playerScoreObject.textContent = "Score: " + playerScore;
+            computerScoreObject.textContent = "Score: " + computerScore;
+            times++;
+            console.log(times);
+
+            if(times >= 5){
+                setTimeout(()=>{
+                    if(playerScore > computerScore){
+                        alert("You win");
+                    }
+                    else if(playerScore <computerScore){
+                        alert("You lose");
+                    }
+                    else{
+                        alert("Draw");
+                    }
+                }, 50);
+                playerScore = 0;
+                computerScore = 0;
+                playerScoreObject.textContent = "Score: " + playerScore;
+                computerScoreObject.textContent = "Score: " + computerScore;
+                times = 0;
             }
-            let answers = [result, `You: ${playerScore}`, `Computer: ${computerScore}`]
-            for(let i = 0; i < 3; i++){
-                const para = document.createElement("h1");
-                const node = document.createTextNode(answers[i]);
-                para.appendChild(node);
-                const element = document.getElementsByTagName("BODY")[0];
-                element.appendChild(para);
-            }
-        }, 50); 
-    }
+        });
+    });
 }
+
 game();
-// let playerChoice = "rock";
-// let computerChoice = getComputerChoice();
-// console.log("Player: " + playerChoice);
-// console.log("Computer: " + computerChoice);
-// console.log(playRound(playerChoice, computerChoice));
